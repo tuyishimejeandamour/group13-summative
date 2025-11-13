@@ -18,93 +18,71 @@ The system uses pre-trained ML models to determine whether the face matches a kn
 
 | Name                  | Task   | What They're Building                     |
 | --------------------- | ------ | ----------------------------------------- |
-| **Alice Mukarwema**   | Task 1 | Data merge + product recommendation model |
-| **Yassin Hagenimana** | Task 2 | Image collection + facial recognition     |
-| **Hirwa Brian**       | Task 3 | Audio collection + voice verification     |
-| **Cedric Izabayo**    | Task 4 | Integration + system demo                 |
+| **denise**   | Task 1 | Data merge + product recommendation model |
+| **damour** | Task 2 | Image collection + facial recognition     |
+| **kellia**       | Task 3 | Audio collection + voice verification     |
+| **stecie**    | Task 4 | Integration + system demo                 |
+
+**Note:** Current implementation includes face recognition module with team members: damour, denise, kelia, and stecie.
 
 ## Project Structure
 
-**Note:** Empty folders contain README.md files describing what should go inside them.
+```
+group13/
+│
+├── README.md                          # This file
+├── requirements.txt                   # Python dependencies
+│
+├── face_recognition/                  # Face Recognition Module (Task 2)
+│   ├── README.md                      # Face recognition documentation
+│   ├── face_recognition_model.ipynb   # Model training notebook
+│   ├── data/                          # Facial images (3 per member)
+│   │   ├── damour/
+│   │   ├── denise/
+│   │   ├── kelia/
+│   │   └── stecie/
+│   └── src/                           # Face recognition source code
+│       ├── image_processing.py        # Image preprocessing & feature extraction
+│       ├── predict_face.py            # Single image prediction
+│       ├── batch_predict_face.py      # Batch prediction
+│       └── display_sample_images.py   # Display sample images
+│
+├── voice_recognition/                 # Voice Recognition Module (Task 3)
+│   └── README.md                      # Voice recognition documentation
+│
+├── product_recommender/               # Product Recommendation Module (Task 1)
+│   └── README.md                      # Product recommender documentation
+│
+├── src/                               # Shared Python source code
+│   └── config.py                      # Centralized configuration module
+│
+├── data/                              # Project data (if exists)
+│   ├── features/                      # Extracted features
+│   │   └── image_features.csv         # Image features from face recognition
+│   └── processed/                     # Processed datasets
+│
+└── models/                            # Trained models (.pkl files)
+    ├── face_recognition_model.pkl     # Trained face recognition model
+    ├── face_recognition_scaler.pkl    # Feature scaler
+    └── face_recognition_metadata.json # Model metadata
+```
 
-```
-multimodal-data-preprocessing-assignment/
-│
-├── README.md
-├── requirements.txt
-├── .gitignore
-│
-├── data/
-│   ├── raw/                           # Download datasets here
-│   │   ├── README.md
-│   │   ├── customer_social_profiles.csv
-│   │   └── customer_transactions.csv
-│   ├── processed/                     # Merged/cleaned data
-│   │   ├── README.md
-│   │   └── merged_customer_data.csv
-│   ├── images/                        # Facial images (3 per member)
-│   │   ├── README.md
-│   │   ├── alice/
-│   │   ├── yassin/
-│   │   ├── brian/
-│   │   ├── cedric/
-│   │   └── unauthorized/
-│   ├── audio/                         # Voice recordings (2 per member)
-│   │   ├── README.md
-│   │   ├── alice/
-│   │   ├── yassin/
-│   │   ├── brian/
-│   │   ├── cedric/
-│   │   └── unauthorized/
-│   └── features/                      # Extracted features
-│       ├── README.md
-│       ├── image_features.csv
-│       └── audio_features.csv
-│
-├── notebooks/                         # Jupyter notebooks for analysis
-│   ├── README.md
-│   ├── 01_data_merge_eda.ipynb
-│   ├── 02_image_processing.ipynb
-│   ├── 03_audio_processing.ipynb
-│   └── 04_model_evaluation.ipynb
-│
-├── src/                               # Python source code
-│   ├── data_processing/
-│   │   ├── merge_data.py              # Data merging (Alice)
-│   │   ├── image_processing.py        # Image preprocessing (Yassin)
-│   │   └── audio_processing.py        # Audio preprocessing (Brian)
-│   ├── models/
-│   │   ├── product_recommender.py     # Product model (Alice)
-│   │   ├── face_recognition.py        # Face model (Yassin)
-│   │   └── voice_verification.py      # Voice model (Brian)
-│   ├── pipeline/
-│   │   └── authentication_pipeline.py # Integration (Cedric)
-│   └── utils/
-│       ├── evaluation.py              # Metrics helper
-│       └── visualization.py           # Plotting helper
-│
-├── models/                            # Trained models (.pkl files)
-│   ├── README.md
-│   ├── product_recommender.pkl
-│   ├── face_recognition.pkl
-│   └── voice_verification.pkl
-│
-├── scripts/
-│   ├── setup_directories.py           # Run this first
-│   └── run_authentication_system.py   # Main CLI app (Cedric)
-│
-├── tests/                             # Test files
-│   └── README.md
-│
-├── docs/                              # Additional documentation
-│   └── README.md
-│
-└── reports/                           # Final deliverables
-    ├── README.md
-    ├── final_report.pdf
-    ├── system_demo_video_link.txt
-    └── team_contributions.md
-```
+## Current Implementation Status
+
+| Module | Status | Details |
+|--------|--------|---------|
+| **Face Recognition** | ✅ **Complete** | VGG16 + Random Forest, 4 team members, 8 augmentations |
+| **Voice Recognition** | 🚧 **In Progress** | Under development |
+| **Product Recommender** | 🚧 **In Progress** | Under development |
+| **Pipeline Integration** | 🚧 **Pending** | Waiting for other modules |
+
+**Face Recognition Features:**
+- ✅ Image processing with 8 augmentation techniques
+- ✅ VGG16 feature extraction (512 dimensions)
+- ✅ Random Forest classifier with confidence scoring
+- ✅ Unknown person detection
+- ✅ Batch prediction support
+- ✅ Sample image visualization
 
 ## Setup
 
@@ -119,7 +97,7 @@ multimodal-data-preprocessing-assignment/
 ```bash
 # Clone the repo
 git clone <repo-url>
-cd multimodal-data-preprocessing-assignment
+cd group13
 
 # Set up virtual environment
 python -m venv venv
@@ -128,8 +106,23 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 # Install packages
 pip install -r requirements.txt
 
-# Create project folders
-python scripts/setup_directories.py
+# For face recognition, you'll also need TensorFlow
+pip install tensorflow>=2.13.0
+```
+
+**Quick Start - Face Recognition:**
+
+```bash
+# Navigate to face recognition module
+cd face_recognition
+
+# Run the training notebook
+jupyter notebook face_recognition_model.ipynb
+
+# Or use the Python scripts directly
+cd src
+python image_processing.py
+python predict_face.py ../data/denise/neutral.jpeg
 ```
 
 ## Data Collection (Everyone Needs to Do This!)
@@ -139,11 +132,13 @@ python scripts/setup_directories.py
 Each person takes 3 photos with different expressions:
 
 ```
-data/images/your_name/
-├── neutral.jpg
-├── smiling.jpg
-└── surprised.jpg
+face_recognition/data/your_name/
+├── neutral.jpeg (or .jpg)
+├── smiling.jpeg (or .jpg)
+└── surprised.jpeg (or .jpg)
 ```
+
+**Current team members:** damour, denise, kelia, stecie
 
 **Tips:**
 
@@ -157,7 +152,7 @@ data/images/your_name/
 Record yourself saying these two phrases:
 
 ```
-data/audio/your_name/
+voice_recognition/data/your_name/
 ├── yes_approve.wav
 └── confirm_transaction.wav
 ```
@@ -200,35 +195,48 @@ data/audio/your_name/
    - Calculate accuracy, F1-score, and loss
    - Save to `models/product_recommender.pkl`
 
-### Task 2: Image Processing & Face Recognition (Yassin)
+### Task 2: Image Processing & Face Recognition (Yassin) ✅
 
-**Where to work:** `notebooks/02_image_processing.ipynb` and `src/data_processing/image_processing.py`
+**Status:** ✅ **COMPLETED**
 
-**What to do:**
+**Where to work:** `face_recognition/face_recognition_model.ipynb` and `face_recognition/src/image_processing.py`
 
-1. Collect 3 face photos from each team member (12 total)
+**Implementation Details:**
 
-2. Load and display the images
+1. ✅ Collected 3 face photos from each team member (damour, denise, kelia, stecie)
 
-3. Image augmentation - apply at least 2 techniques:
+2. ✅ Load and display the images - implemented in `display_sample_images.py`
 
+3. ✅ Image augmentation - implemented 8 techniques:
+
+   - Original image
    - Rotation (±15 degrees)
    - Horizontal flip
+   - Brightness increase/decrease
    - Grayscale conversion
-   - Brightness changes
-   - Adding noise
+   - Gaussian blur
 
-4. Extract features from the images
+4. ✅ Extract features from the images using VGG16:
 
-   - Save to `data/features/image_features.csv`
+   - Uses pre-trained VGG16 model (ImageNet)
+   - Extracts 512-dimensional feature embeddings
+   - Saves to `data/features/image_features.csv`
 
-5. Train a face recognition model:
+5. ✅ Trained a face recognition model:
 
-   - Use XGBoost (recommended), Logistic Regression, or Random Forest
-   - Calculate accuracy, F1-score, and loss
-   - Save to `models/face_recognition.pkl`
+   - Model: Random Forest classifier
+   - Features: VGG16 embeddings (512 dimensions)
+   - Metrics: Accuracy, F1-score, and Log Loss
+   - Saved to `models/face_recognition_model.pkl`
+   - Includes confidence threshold for unknown person detection
 
-6. Test with both authorized and unauthorized faces
+6. ✅ Testing capabilities:
+
+   - Single image prediction (`predict_face.py`)
+   - Batch prediction (`batch_predict_face.py`)
+   - Unknown person detection with configurable confidence threshold
+
+**See `face_recognition/README.md` for detailed documentation.**
 
 ### Task 3: Audio Processing & Voice Verification (Brian)
 
