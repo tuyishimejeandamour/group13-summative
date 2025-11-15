@@ -15,7 +15,7 @@ Usage:
     labels = Config.get_label_mapping()
     
     # Get paths
-    images_dir = Config.IMAGES_DIR
+    data_dir = Config.FACE_DATA_DIR
 """
 
 from pathlib import Path
@@ -35,40 +35,42 @@ class Config:
     # Get project root (parent of src directory)
     PROJECT_ROOT = Path(__file__).resolve().parent.parent
     
-    # Data directories
-    DATA_DIR = PROJECT_ROOT / 'data'
-    IMAGES_DIR = DATA_DIR / 'images'
-    FEATURES_DIR = DATA_DIR / 'features'
-    PROCESSED_DIR = DATA_DIR / 'processed'
-    RAW_DIR = DATA_DIR / 'raw'
-    AUDIO_DIR = DATA_DIR / 'audio'
+    # Module directories
+    FACE_RECOGNITION_DIR = PROJECT_ROOT / 'face_recognition'
+    VOICE_RECOGNITION_DIR = PROJECT_ROOT / 'voice_recognition'
+    PRODUCT_RECOMMENDER_DIR = PROJECT_ROOT / 'product_recommender'
     
-    # Output directories
-    MODELS_DIR = PROJECT_ROOT / 'models'
-    REPORTS_DIR = PROJECT_ROOT / 'reports'
-    NOTEBOOKS_DIR = PROJECT_ROOT / 'notebooks'
+    # Face recognition paths
+    FACE_DATA_DIR = FACE_RECOGNITION_DIR / 'data'
+    FACE_IMAGES_DIR = FACE_DATA_DIR  # User folders are directly under data/
+    FACE_FEATURES_DIR = FACE_DATA_DIR / 'features'
+    FACE_REPORTS_DIR = FACE_RECOGNITION_DIR / 'reports'
+    FACE_SRC_DIR = FACE_RECOGNITION_DIR / 'src'
     
     # Feature files
-    IMAGE_FEATURES_CSV = FEATURES_DIR / 'image_features.csv'
+    IMAGE_FEATURES_CSV = FACE_FEATURES_DIR / 'image_features.csv'
     
-    # Model files
-    FACE_MODEL_PATH = MODELS_DIR / 'face_recognition_model.pkl'
-    FACE_SCALER_PATH = MODELS_DIR / 'face_recognition_scaler.pkl'
-    FACE_METADATA_PATH = MODELS_DIR / 'face_recognition_metadata.json'
+    # Model files (stored in data directory based on actual structure)
+    FACE_MODEL_PATH = FACE_DATA_DIR / 'face_recognition_model.pkl'
+    FACE_SCALER_PATH = FACE_DATA_DIR / 'face_recognition_scaler.pkl'
+    FACE_METADATA_PATH = FACE_DATA_DIR / 'face_recognition_metadata.json'
     
     # Report files
-    SAMPLE_IMAGES_REPORT = REPORTS_DIR / 'sample_images.png'
+    SAMPLE_IMAGES_REPORT = FACE_REPORTS_DIR / 'sample_images.png'
+    
+    # Notebook files
+    FACE_IDENTIFIER_NOTEBOOK = FACE_RECOGNITION_DIR / 'face_indentifier.ipynb'
     
     # ==================== TEAM MEMBERS ====================
     
-    # Default team members (can be overridden)
-    DEFAULT_USERS = ['Alice', 'Armstrong', 'cedric', 'yassin']
+    # Default team members (actual users from data directory)
+    DEFAULT_USERS = ['damour', 'denise', 'kelia', 'stecie']
     
-    # Expressions for facial images
-    EXPRESSIONS = ['neutral', 'smiling', 'surprised']
+    # Expressions for facial images (based on actual file patterns)
+    EXPRESSIONS = ['normal', 'smilling', 'surprised']
     
     # Folders to exclude from auto-detection
-    EXCLUDED_FOLDERS = ['test', 'temp', 'backup', '.git', '__pycache__']
+    EXCLUDED_FOLDERS = ['features', 'test', 'temp', 'backup', '.git', '__pycache__']
     
     # ==================== MODEL PARAMETERS ====================
     
@@ -123,19 +125,19 @@ class Config:
     @classmethod
     def _auto_detect_users(cls) -> List[str]:
         """
-        Automatically detect user directories from IMAGES_DIR.
+        Automatically detect user directories from FACE_IMAGES_DIR.
         
         Returns:
             Sorted list of user names (directory names)
         """
         try:
-            if not cls.IMAGES_DIR.exists():
-                print(f"Warning: Images directory {cls.IMAGES_DIR} does not exist")
+            if not cls.FACE_IMAGES_DIR.exists():
+                print(f"Warning: Images directory {cls.FACE_IMAGES_DIR} does not exist")
                 return cls.DEFAULT_USERS.copy()
             
-            # Get all subdirectories, excluding test/temp folders
+            # Get all subdirectories, excluding features and other excluded folders
             users = [
-                d.name for d in cls.IMAGES_DIR.iterdir()
+                d.name for d in cls.FACE_IMAGES_DIR.iterdir()
                 if d.is_dir() 
                 and not d.name.startswith('.')
                 and d.name.lower() not in cls.EXCLUDED_FOLDERS
@@ -187,15 +189,11 @@ class Config:
         Create all necessary directories if they don't exist.
         """
         directories = [
-            cls.DATA_DIR,
-            cls.IMAGES_DIR,
-            cls.FEATURES_DIR,
-            cls.PROCESSED_DIR,
-            cls.RAW_DIR,
-            cls.AUDIO_DIR,
-            cls.MODELS_DIR,
-            cls.REPORTS_DIR,
-            cls.NOTEBOOKS_DIR
+            cls.FACE_DATA_DIR,
+            cls.FACE_IMAGES_DIR,
+            cls.FACE_FEATURES_DIR,
+            cls.FACE_REPORTS_DIR,
+            cls.FACE_SRC_DIR,
         ]
         
         for directory in directories:

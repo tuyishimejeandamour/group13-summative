@@ -1,0 +1,27 @@
+{
+    "model_type": "RandomForestClassifier",
+    "n_estimators": 100,
+    "max_depth": 20,
+    "n_features": 512,
+    "n_classes": 4,
+    "classes": [
+        0,
+        1,
+        2,
+        3
+    ],
+    "class_names": [
+        "damour",
+        "denise",
+        "kelia",
+        "stecie"
+    ],
+    "training_samples": 76,
+    "test_samples": 20,
+    "test_accuracy": 1.0,
+    "test_f1_weighted": 1.0,
+    "test_f1_macro": 1.0,
+    "test_log_loss": 0.14308492276677612,
+    "training_time_seconds": 0.3679795265197754,
+    "trained_date": "2025-11-15 19:57:38"
+}
