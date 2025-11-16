@@ -37,8 +37,11 @@ customer_id_legacy,transaction_id,purchase_amount,purchase_date,product_category
 179,1036,490,2024-02-05,Clothing,1.7,A106,Facebook,99,4.2,Negative
 114,1037,183,2024-02-06,Clothing,2.7,A149,Facebook,51,1.3,Positive
 161,1038,333,2024-02-07,Clothing,2.6,A109,Twitter,80,4.3,Neutral
+161,1039,77,2024-02-08,Groceries,,A142,LinkedIn,75,4.9,Positive
 146,1040,157,2024-02-09,Books,3.5,A163,TikTok,53,4.0,Neutral
 161,1041,93,2024-02-10,Electronics,1.2,A154,TikTok,72,2.9,Positive
+150,1042,389,2024-02-11,Sports,,A120,Facebook,83,1.4,Positive
+154,1043,335,2024-02-12,Electronics,,A189,Twitter,59,3.8,Neutral
 163,1044,495,2024-02-13,Sports,3.0,A177,LinkedIn,77,1.4,Positive
 102,1045,380,2024-02-14,Electronics,4.4,A194,LinkedIn,89,4.0,Negative
 150,1046,177,2024-02-15,Books,3.6,A154,TikTok,72,2.9,Positive
@@ -65,6 +68,7 @@ customer_id_legacy,transaction_id,purchase_amount,purchase_date,product_category
 134,1067,283,2024-03-07,Sports,3.7,A127,Twitter,57,4.0,Positive
 177,1068,221,2024-03-08,Groceries,1.3,A185,TikTok,90,3.4,Neutral
 180,1069,201,2024-03-09,Electronics,2.3,A183,TikTok,90,4.1,Positive
+135,1070,364,2024-03-10,Electronics,,A190,Twitter,82,4.8,Neutral
 149,1071,423,2024-03-11,Sports,1.1,A162,Twitter,71,4.8,Positive
 103,1072,209,2024-03-12,Sports,4.3,A163,TikTok,53,4.0,Neutral
 101,1073,145,2024-03-13,Books,2.1,A139,Twitter,72,4.0,Negative
@@ -75,6 +79,7 @@ customer_id_legacy,transaction_id,purchase_amount,purchase_date,product_category
 192,1078,491,2024-03-18,Books,3.9,A121,LinkedIn,74,3.5,Positive
 162,1079,101,2024-03-19,Books,4.2,A117,LinkedIn,78,3.9,Neutral
 117,1080,317,2024-03-20,Electronics,2.1,A139,Twitter,72,4.0,Negative
+189,1081,344,2024-03-21,Books,,A150,Facebook,96,1.6,Positive
 143,1082,435,2024-03-22,Groceries,4.0,A118,Facebook,76,3.9,Negative
 133,1083,436,2024-03-23,Sports,4.2,A155,Instagram,59,1.5,Positive
 173,1084,162,2024-03-24,Electronics,5.0,A113,Facebook,98,2.7,Neutral
@@ -82,6 +87,7 @@ customer_id_legacy,transaction_id,purchase_amount,purchase_date,product_category
 199,1086,162,2024-03-26,Books,2.5,A146,Twitter,69,3.9,Negative
 113,1087,489,2024-03-27,Books,4.1,A122,Twitter,77,4.2,Neutral
 194,1088,130,2024-03-28,Electronics,2.4,A124,LinkedIn,77,3.2,Positive
+147,1089,236,2024-03-29,Groceries,,A180,LinkedIn,98,2.1,Negative
 114,1090,162,2024-03-30,Clothing,4.4,A197,LinkedIn,57,2.9,Neutral
 171,1091,51,2024-03-31,Electronics,2.7,A100,Twitter,73,4.4,Negative
 177,1092,179,2024-04-01,Clothing,4.0,A150,LinkedIn,86,3.6,Neutral
@@ -90,8 +96,10 @@ customer_id_legacy,transaction_id,purchase_amount,purchase_date,product_category
 139,1095,392,2024-04-04,Clothing,4.6,A187,Instagram,71,2.5,Neutral
 184,1096,273,2024-04-05,Clothing,3.0,A107,Twitter,73,4.2,Positive
 179,1097,274,2024-04-06,Groceries,4.3,A116,TikTok,83,1.2,Negative
+181,1098,434,2024-04-07,Clothing,,A160,TikTok,56,2.6,Positive
 152,1099,452,2024-04-08,Clothing,4.6,A155,Instagram,84,3.1,Positive
 123,1100,175,2024-04-09,Clothing,2.6,A120,Facebook,83,1.4,Positive
+125,1101,179,2024-04-10,Electronics,,A150,LinkedIn,86,3.6,Neutral
 188,1102,102,2024-04-11,Electronics,4.6,A185,Facebook,78,2.4,Positive
 159,1103,221,2024-04-12,Electronics,1.4,A166,Instagram,74,4.3,Neutral
 140,1104,267,2024-04-13,Groceries,2.3,A117,LinkedIn,98,3.8,Neutral
@@ -100,6 +108,7 @@ customer_id_legacy,transaction_id,purchase_amount,purchase_date,product_category
 144,1107,465,2024-04-16,Clothing,3.3,A139,Twitter,72,4.0,Negative
 164,1108,296,2024-04-17,Groceries,3.5,A142,LinkedIn,75,4.9,Positive
 188,1109,373,2024-04-18,Clothing,2.8,A133,Twitter,71,4.8,Negative
+170,1110,488,2024-04-19,Electronics,,A145,Twitter,92,2.4,Neutral
 108,1111,252,2024-04-20,Books,2.3,A149,Facebook,51,1.3,Positive
 187,1112,233,2024-04-21,Sports,3.7,A107,Twitter,73,4.2,Positive
 100,1113,172,2024-04-22,Clothing,4.0,A103,Instagram,77,2.3,Positive
@@ -132,6 +141,7 @@ customer_id_legacy,transaction_id,purchase_amount,purchase_date,product_category
 190,1140,401,2024-05-19,Sports,4.9,A145,Twitter,92,2.4,Neutral
 134,1141,248,2024-05-20,Books,4.0,A166,Instagram,74,4.3,Neutral
 164,1142,357,2024-05-21,Sports,2.5,A111,Instagram,98,4.1,Negative
+198,1143,466,2024-05-22,Books,,A189,TikTok,99,4.1,Neutral
 146,1144,473,2024-05-23,Sports,4.1,A124,TikTok,75,4.6,Neutral
 177,1145,177,2024-05-24,Groceries,3.2,A117,LinkedIn,78,3.9,Neutral
 102,1146,88,2024-05-25,Sports,2.7,A160,LinkedIn,73,2.0,Neutral
