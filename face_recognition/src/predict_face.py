@@ -69,13 +69,8 @@ class EnhancedFaceRecognitionPredictor:
             self.model = joblib.load(model_path)
             self.scaler = joblib.load(scaler_path)
             
-            print(f"Model loaded from: {model_path}")
-            print(f"Scaler loaded from: {scaler_path}")
-            print(f"Confidence threshold: {self.confidence_threshold*100:.0f}%")
-            
         except FileNotFoundError:
-            print(f"ERROR: Could not find model files in {self.model_dir}")
-            sys.exit(1)
+            raise FileNotFoundError(f"Could not find model files in {self.model_dir}")
     
     def load_metadata(self):
         """
@@ -92,26 +87,18 @@ class EnhancedFaceRecognitionPredictor:
             # Create reverse label mapping: label_index -> user_name
             self.user_mapping = {i: name for i, name in enumerate(class_names)}
             
-            print(f"Loaded class names from training: {class_names}")
-            
         except FileNotFoundError:
-            print(f"WARNING: Metadata file not found at {metadata_path}")
-            print("Falling back to Config defaults (may cause incorrect predictions)")
             # Fallback to Config defaults
             default_users = Config.get_users()
             self.user_mapping = Config.get_reverse_label_mapping(users=default_users)
-        except (KeyError, json.JSONDecodeError) as e:
-            print(f"WARNING: Error reading metadata: {e}")
-            print("Falling back to Config defaults")
+        except (KeyError, json.JSONDecodeError):
             default_users = Config.get_users()
             self.user_mapping = Config.get_reverse_label_mapping(users=default_users)
     
     def load_feature_extractor(self):
         """Load VGG16 model for feature extraction"""
-        print("\nLoading VGG16 feature extractor...")
         base_model = VGG16(weights='imagenet', include_top=False, pooling='avg')
         self.feature_extractor = base_model
-        print("VGG16 loaded successfully")
     
     def load_and_preprocess_image(self, image_path):
         """Load and preprocess an image"""
@@ -140,33 +127,21 @@ class EnhancedFaceRecognitionPredictor:
         
         Args:
             image_path: Path to the image file
-            show_probabilities: Whether to show probability scores
+            show_probabilities: Whether to show probability scores (unused, kept for compatibility)
             
         Returns:
             prediction: Dictionary containing prediction results
         """
-        print(f"\n{'='*70}")
-        print(f"ENHANCED FACE RECOGNITION PREDICTION")
-        print(f"{'='*70}")
-        print(f"\nImage: {image_path}")
-        
         # Load and preprocess image
-        print("\nStep 1: Loading and preprocessing image...")
         img_array, original_img = self.load_and_preprocess_image(image_path)
-        print(f"Image loaded: {original_img.shape}")
         
         # Extract features
-        print("\nStep 2: Extracting features using VGG16...")
         features = self.extract_features(img_array)
-        print(f"Features extracted: {features.shape[0]} dimensions")
         
         # Scale features
-        print("\nStep 3: Scaling features...")
         features_scaled = self.scaler.transform(features.reshape(1, -1))
-        print("Features scaled")
         
         # Make prediction
-        print("\nStep 4: Making prediction with confidence check...")
         prediction_label = self.model.predict(features_scaled)[0]
         prediction_proba = self.model.predict_proba(features_scaled)[0]
         confidence = prediction_proba[prediction_label]
@@ -197,58 +172,6 @@ class EnhancedFaceRecognitionPredictor:
                 'entropy': entropy
             }
         }
-        
-        # Display results
-        print(f"\n{'='*70}")
-        print(f"PREDICTION RESULTS")
-        print(f"{'='*70}")
-        
-        if is_known_person:
-            print(f"\nStatus: KNOWN PERSON")
-            print(f"Predicted User: {predicted_user}")
-            print(f"Confidence: {confidence*100:.2f}%")
-            print(f"Threshold: {self.confidence_threshold*100:.0f}% (PASSED)")
-        else:
-            print(f"\nStatus: UNKNOWN PERSON DETECTED")
-            print(f"Best Match: {self.user_mapping[prediction_label]} (LOW CONFIDENCE)")
-            print(f"Confidence: {confidence*100:.2f}%")
-            print(f"Threshold: {self.confidence_threshold*100:.0f}% (NOT MET)")
-            print(f"\nInterpretation:")
-            print(f"   The model cannot confidently identify this person as one of the")
-            print(f"   trained users (Alice, cedric, yassin). This person may be:")
-            print(f"   - Not in the training dataset")
-            print(f"   - A low-quality or unclear image")
-            print(f"   - An unauthorized user attempting access")
-        
-        if show_probabilities:
-            print(f"\nProbability Distribution:")
-            for user, prob in result['probabilities'].items():
-                bar = '#' * int(prob / 2)
-                marker = ' <-' if user == self.user_mapping[prediction_label] else ''
-                print(f"  {user:>8s}: {prob:>6.2f}% {bar}{marker}")
-            
-            print(f"\nUncertainty Metrics:")
-            print(f"  Max Probability: {max_prob:.4f}")
-            print(f"  Probability Gap (top 2): {prob_diff:.4f} {'(High = More certain)' if prob_diff > 0.3 else '(Low = Less certain)'}")
-            print(f"  Entropy: {entropy:.4f} {'(Low = More certain)' if entropy < 0.5 else '(High = Less certain)'}")
-        
-        # Decision recommendation
-        print(f"\n{'='*70}")
-        print(f"AUTHENTICATION RECOMMENDATION")
-        print(f"{'='*70}")
-        
-        if is_known_person and confidence > 0.95:
-            print(f"GRANT ACCESS - High confidence identification")
-        elif is_known_person and confidence > 0.85:
-            print(f"GRANT ACCESS (with caution) - Acceptable confidence")
-        elif is_known_person:
-            print(f"VERIFY IDENTITY - Confidence meets threshold but is low")
-            print(f"   Consider secondary authentication method")
-        else:
-            print(f"DENY ACCESS - Unknown person or insufficient confidence")
-            print(f"   This person is not recognized as a trained user")
-        
-        print(f"\n{'='*70}")
         
         return result
 
@@ -309,12 +232,10 @@ Confidence Threshold Guide:
     
     # Validate threshold
     if not 0.0 <= args.threshold <= 1.0:
-        print("ERROR: Threshold must be between 0.0 and 1.0")
         return 1
     
     # Validate image path
     if not os.path.exists(args.image_path):
-        print(f"ERROR: Image file not found: {args.image_path}")
         return 1
     
     try:
@@ -333,10 +254,7 @@ Confidence Threshold Guide:
         # Exit code: 0 for known person, 1 for unknown
         return 0 if result['is_known_person'] else 1
         
-    except Exception as e:
-        print(f"\nERROR: {str(e)}")
-        import traceback
-        traceback.print_exc()
+    except Exception:
         return 1
 
 
